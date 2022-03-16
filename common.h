@@ -11,6 +11,5 @@
     #define log_debug(M, ...) fprintf(stderr, "[DEBUG] (%s:%d) " M "\n", \
                                  __FILE__, __LINE__, ##__VA_ARGS__)                                
 #else
-    #define log_info(M, ...)
-    #define log_info_detected(M, ...)
+    #define log_debug(M, ...)
 #endif

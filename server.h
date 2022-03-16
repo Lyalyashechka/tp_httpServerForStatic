@@ -5,9 +5,11 @@
 #include <string>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <thread>
 
 #include "parser.h"
 #include "common.h"
+#include "FSManager.h"
 
 class Server
 {
@@ -22,13 +24,16 @@ public:
     void WaitAccept();
 
 private:
-    void OnAccept();
+    void OnAccept(int _addressConnnected);
 
-    void Read();
+    void Read(int _addressConnnected);
 
+    void OnRead(int _addressConnnected, HTTPRequest message);
+    
     int _socket;
-    int _addressAccept;
-    struct sockaddr_un _addressConnnected;
 
+    FSManager fsManager;
     Parser parser;
+    
+    std::vector<std::thread> threadRequest;
 };

@@ -6,7 +6,7 @@ class Parser
 public:
     Parser() = default;
 
-    message ParseHTTP(char *request, short &error);
+    HTTPRequest ParseHTTP(char *request, short &error);
 
     enum ParseError
     {
@@ -16,8 +16,15 @@ public:
         OK,
     };
 
+    std::string HTTPResponseToString(const HTTPResponse& message);
+
+    std::string getContentTypeByFileName(const std::string& fileName);
+
+    std::string urlEncoding(std::string &url);
 private:
     bool isCorrectMethod(const std::string& method);
+    
+    std::string getDescriptionCode(int code);
 
-    std::vector<std::string> supportedMethod {"GET"};
+    std::vector<std::string> supportedMethod {"GET", "HEAD"};
 };
