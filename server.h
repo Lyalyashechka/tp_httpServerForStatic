@@ -11,11 +11,17 @@
 #include "common.h"
 #include "FSManager.h"
 
+
+struct Config {
+    int threadLimit;
+    std::string documentRoot;
+};
+
 class Server
 {
 
 public:
-    Server();
+    Server(Config conf);
 
     ~Server();
 
@@ -34,6 +40,7 @@ private:
 
     FSManager fsManager;
     Parser parser;
+    Config conf;
     
     std::vector<std::thread> threadRequest;
 };

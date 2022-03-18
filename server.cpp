@@ -5,8 +5,9 @@
 
 #define MAX_SIZE_MESSAGE 10'000
 
-Server::Server() 
+Server::Server(Config _conf) 
 {
+    conf = _conf;
     _socket = socket(AF_INET, SOCK_STREAM, 0);
     if (_socket < 0) {
         std::cerr << "socket error\n";
@@ -20,7 +21,7 @@ short Server::Start(struct sockaddr_in& saun)
         return -1;
     }
 
-    if (::listen(_socket, 256) < 0) {
+    if (::listen(_socket, conf.threadLimit) < 0) {
         std::cerr << "listen error\n";
         return -1;
     }
